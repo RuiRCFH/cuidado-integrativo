@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rui - Cuidado Integrativo</title>
+    <style>
+        :root { --primary: #6B8E23; --accent: #9370DB; --bg: #FDFBFA; --text: #34495E; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; min-height: 100vh; }
+        #app-card { width: 100%; max-width: 480px; background: white; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .header { text-align: center; border-bottom: 1px solid #EEE; padding-bottom: 20px; margin-bottom: 20px; }
+        .area-card { background: #F8F9F9; border-radius: 15px; padding: 20px; margin-bottom: 15px; border-left: 5px solid var(--primary); }
+        .area-card h3 { margin-top: 0; color: var(--primary); font-size: 18px; }
+        .tag { font-size: 11px; font-weight: bold; text-transform: uppercase; background: #E5E8E8; padding: 4px 8px; border-radius: 4px; margin-bottom: 10px; display: inline-block; }
+        .btn-acesso { width: 100%; padding: 15px; border-radius: 50px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
+        .biblio { font-size: 12px; color: #7F8C8D; font-style: italic; margin-top: 10px; border-top: 1px solid #EEE; padding-top: 10px; }
+        .tela { display: none; }
+        .ativa { display: block; }
+    </style>
+</head>
+<body>
+
+<div id="app-card">
+    <div id="tela-login" class="tela ativa">
+        <div class="header">
+            <h2>Portal do Paciente</h2>
+            <p>Insira sua chave de acesso terapêutico</p>
+        </div>
+        <input type="password" id="senha" placeholder="Chave de acesso" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #DDD; border-radius:10px;">
+        <button class="btn-acesso" onclick="entrar()">Aceder ao Plano de Cuidado</button>
+    </div>
+
+    <div id="tela-menu" class="tela">
+        <div class="header">
+            <h2 style="color:var(--primary)">Como se sente agora?</h2>
+        </div>
+        <button class="btn-acesso" style="margin-bottom:10px; background:#AED6F1; color:#1B4F72;" onclick="verProtocolo('stress')">Estado de Ansiedade / Stress</button>
+        <button class="btn-acesso" style="margin-bottom:10px; background:#D2B4DE; color:#4A235A;" onclick="verProtocolo('foco')">Dispersão Mental / Fadiga</button>
+    </div>
+
+    <div id="tela-protocolo" class="tela">
+        <div id="conteudo-dinamico"></div>
+        <button class="btn-acesso" style="background:#BDC3C7" onclick="voltar()">Voltar</button>
+    </div>
+</div>
+
+<script>
+    const SENHA = "RUI2024"; // Mantendo sua senha padrão
+
+    const protocolos = {
+        stress: {
+            titulo: "Regulação do Stress e Eixo HPA",
+            acupressura: "Ponto Shen Men (Orelha): Localizado no terço superior da fossa triangular. Estimule com pressão circular por 1 min. Ativa o nervo vago.",
+            cristal: "Ametista: Devido à sua estrutura cristalina hexagonal e presença de ferro, auxilia na modulação de frequências cerebrais de alta voltagem (Beta) para estados Alfa.",
+            biblio: "Ref: Soulié de Morant, G. (L'Acupuncture Chinoise); Gienger, M. (Healing Crystals)."
+        },
+        foco: {
+            titulo: "Clareza Mental e Presença",
+            acupressura: "Ponto Yintang: Localizado entre as sobrancelhas. Pressão suave ascendente. Reduz a atividade incessante do córtex pré-frontal.",
+            cristal: "Fluorita: Atua na organização de processos mentais através da sua geometria octaédrica, favorecendo a estrutura lógica.",
+            biblio: "Ref: Maciocia, G. (Os Fundamentos da Medicina Chinesa)."
+        }
+    };
+
+    function entrar() {
+        if(document.getElementById('senha').value === SENHA) {
+            document.getElementById('tela-login').classList.remove('ativa');
+            document.getElementById('tela-menu').classList.add('ativa');
+        } else { alert("Chave incorreta."); }
+    }
+
+    function verProtocolo(id) {
+        const p = protocolos[id];
+        const html = `
+            <div class="area-card">
+                <span class="tag">Protocolo Bio-Regulador</span>
+                <h3>${p.titulo}</h3>
+                <p><strong>Acupressão:</strong> ${p.acupressura}</p>
+                <p><strong>Cristal-terapia:</strong> ${p.cristal}</p>
+                <div class="biblio">${p.biblio}</div>
+            </div>
+        `;
+        document.getElementById('conteudo-dinamico').innerHTML = html;
+        document.getElementById('tela-menu').classList.remove('ativa');
+        document.getElementById('tela-protocolo').classList.add('ativa');
+    }
+
+    function voltar() {
+        document.getElementById('tela-protocolo').classList.remove('ativa');
+        document.getElementById('tela-menu').classList.add('ativa');
+    }
+</script>
+</body>
+</html>
