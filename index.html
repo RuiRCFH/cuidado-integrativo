@@ -4,61 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rui - Cuidado Integrativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #6B8E23; --accent: #9370DB; --bg: #FDFBFA; --text: #34495E; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; min-height: 100vh; }
-        #app-card { width: 100%; max-width: 480px; background: white; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .header { text-align: center; border-bottom: 1px solid #EEE; padding-bottom: 20px; margin-bottom: 20px; }
-        .area-card { background: #F8F9F9; border-radius: 15px; padding: 20px; margin-bottom: 15px; border-left: 5px solid var(--primary); }
-        .area-card h3 { margin-top: 0; color: var(--primary); font-size: 18px; }
-        .tag { font-size: 11px; font-weight: bold; text-transform: uppercase; background: #E5E8E8; padding: 4px 8px; border-radius: 4px; margin-bottom: 10px; display: inline-block; }
-        .btn-acesso { width: 100%; padding: 15px; border-radius: 50px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
-        .biblio { font-size: 12px; color: #7F8C8D; font-style: italic; margin-top: 10px; border-top: 1px solid #EEE; padding-top: 10px; }
-        .tela { display: none; }
+        :root { --paz: #E8F3F1; --cura: #5D737E; --cristal: #9B7EDE; --ouro: #C5A059; --texto: #2C3E50; }
+        body { font-family: 'Inter', sans-serif; background: var(--paz); color: var(--texto); margin: 0; display: flex; justify-content: center; min-height: 100vh; line-height: 1.6; }
+        #app-card { width: 100%; max-width: 500px; background: white; min-height: 100vh; box-shadow: 0 0 50px rgba(0,0,0,0.05); position: relative; }
+        
+        .header { padding: 40px 20px; text-align: center; background: linear-gradient(180deg, #FDFBFA 0%, var(--paz) 100%); }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 28px; margin: 0; color: var(--cura); }
+        .header p { font-style: italic; font-size: 14px; color: #7F8C8D; }
+
+        .tela { display: none; padding: 20px; animation: fadeIn 0.6s ease; }
         .ativa { display: block; }
+
+        /* MENU ESTILIZADO */
+        .btn-menu { width: 100%; padding: 25px; margin-bottom: 15px; border: 1px solid #EEE; border-radius: 20px; background: white; cursor: pointer; text-align: left; transition: 0.3s; display: flex; align-items: center; }
+        .btn-menu:hover { border-color: var(--cura); background: #FAFDFD; transform: translateY(-2px); }
+        .icon-box { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 20px; }
+
+        /* CONTEÚDO PROFUNDO */
+        .secao-terapeutica { margin-bottom: 30px; border-left: 2px solid var(--ouro); padding-left: 20px; }
+        .secao-terapeutica h3 { font-family: 'Playfair Display', serif; color: var(--cura); font-size: 20px; margin-bottom: 10px; }
+        .tag-biblio { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--ouro); font-weight: bold; margin-bottom: 5px; display: block; }
+        
+        /* RESPIRAÇÃO GUIADA */
+        .respirador { width: 100px; height: 100px; border: 3px solid var(--cura); border-radius: 50%; margin: 20px auto; animation: pulsar 8s infinite ease-in-out; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--cura); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulsar { 0%, 100% { transform: scale(1); background: transparent; } 50% { transform: scale(1.5); background: #E8F3F1; } }
+
+        .btn-voltar { margin-top: 30px; background: none; border: none; color: var(--cura); font-weight: bold; cursor: pointer; display: flex; align-items: center; width: 100%; justify-content: center; }
     </style>
 </head>
 <body>
 
 <div id="app-card">
-    <div id="tela-login" class="tela ativa">
-        <div class="header">
-            <h2>Portal do Paciente</h2>
-            <p>Insira sua chave de acesso terapêutico</p>
+    <div id="tela-login" class="tela ativa" style="text-align: center; padding-top: 100px;">
+        <h1 style="font-family: 'Playfair Display';">Rui</h1>
+        <p>Cuidado Integrativo & Transpessoal</p>
+        <div style="margin-top: 50px;">
+            <input type="password" id="senha" placeholder="Sua chave terapêutica" style="padding: 15px; border-radius: 10px; border: 1px solid #DDD; width: 80%;">
+            <button onclick="entrar()" style="margin-top: 20px; padding: 15px 40px; border-radius: 50px; border: none; background: var(--cura); color: white; font-weight: bold; cursor: pointer;">Entrar no Portal</button>
         </div>
-        <input type="password" id="senha" placeholder="Chave de acesso" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #DDD; border-radius:10px;">
-        <button class="btn-acesso" onclick="entrar()">Aceder ao Plano de Cuidado</button>
     </div>
 
     <div id="tela-menu" class="tela">
         <div class="header">
-            <h2 style="color:var(--primary)">Como se sente agora?</h2>
+            <h1>Seu Refúgio Digital</h1>
+            <p>O acompanhamento continua aqui.</p>
         </div>
-        <button class="btn-acesso" style="margin-bottom:10px; background:#AED6F1; color:#1B4F72;" onclick="verProtocolo('stress')">Estado de Ansiedade / Stress</button>
-        <button class="btn-acesso" style="margin-bottom:10px; background:#D2B4DE; color:#4A235A;" onclick="verProtocolo('foco')">Dispersão Mental / Fadiga</button>
+        
+        <button class="btn-menu" onclick="verProtocolo('insonia')">
+            <div class="icon-box" style="background: #F4ECF7;">🌙</div>
+            <div><strong>Ciclo de Sono</strong><br><small>Insónia e repouso profundo</small></div>
+        </button>
+
+        <button class="btn-menu" onclick="verProtocolo('stress')">
+            <div class="icon-box" style="background: #E8F8F5;">🌿</div>
+            <div><strong>Alívio do Stress</strong><br><small>Ansiedade e regulação do Eixo HPA</small></div>
+        </button>
+
+        <button class="btn-menu" onclick="verProtocolo('homeopatia')">
+            <div class="icon-box" style="background: #FEF9E7;">💧</div>
+            <div><strong>Guia de Homeopatia</strong><br><small>Cuidados com o medicamento</small></div>
+        </button>
     </div>
 
     <div id="tela-protocolo" class="tela">
+        <div id="ritual-preparacao">
+            <p style="text-align:center; font-style: italic;">Antes de começar, acompanhe o ritmo da respiração...</p>
+            <div class="respirador">Inspire...</div>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #EEE; margin: 30px 0;">
         <div id="conteudo-dinamico"></div>
-        <button class="btn-acesso" style="background:#BDC3C7" onclick="voltar()">Voltar</button>
+        <button class="btn-voltar" onclick="voltar()">← Voltar ao Menu</button>
     </div>
 </div>
 
 <script>
-    const SENHA = "RUI2024"; // Mantendo sua senha padrão
+    const SENHA = "RUI2024"; //
 
-    const protocolos = {
-        stress: {
-            titulo: "Regulação do Stress e Eixo HPA",
-            acupressura: "Ponto Shen Men (Orelha): Localizado no terço superior da fossa triangular. Estimule com pressão circular por 1 min. Ativa o nervo vago.",
-            cristal: "Ametista: Devido à sua estrutura cristalina hexagonal e presença de ferro, auxilia na modulação de frequências cerebrais de alta voltagem (Beta) para estados Alfa.",
-            biblio: "Ref: Soulié de Morant, G. (L'Acupuncture Chinoise); Gienger, M. (Healing Crystals)."
+    const baseDados = {
+        insonia: {
+            titulo: "Higiene do Sono e Repouso",
+            secoes: [
+                {
+                    tipo: "Acupressão",
+                    txt: "Ponto Anmian (Paz Serena): Localizado atrás da orelha, entre o processo mastoide e o osso occipital. Massaje suavemente por 3 minutos antes de deitar.",
+                    ref: "Cheng X. (Chinese Acupuncture and Moxibustion)"
+                },
+                {
+                    tipo: "Cristal-terapia",
+                    txt: "Ametista: Devido à sua composição silicatada e traços de ferro, atua na estabilização dos campos eletromagnéticos que perturbam a glândula pineal.",
+                    ref: "Michael Gienger (Crystal Power, Crystal Healing)"
+                }
+            ]
         },
-        foco: {
-            titulo: "Clareza Mental e Presença",
-            acupressura: "Ponto Yintang: Localizado entre as sobrancelhas. Pressão suave ascendente. Reduz a atividade incessante do córtex pré-frontal.",
-            cristal: "Fluorita: Atua na organização de processos mentais através da sua geometria octaédrica, favorecendo a estrutura lógica.",
-            biblio: "Ref: Maciocia, G. (Os Fundamentos da Medicina Chinesa)."
+        stress: {
+            titulo: "Harmonização e Presença",
+            secoes: [
+                {
+                    tipo: "Acupressão",
+                    txt: "Ponto Shen Men Auricular: No centro da fossa triangular. Ativa o sistema parassimpático e reduz os níveis de cortisol.",
+                    ref: "Nogier, P. (Treatise of Auriculotherapy)"
+                },
+                {
+                    tipo: "Aromaterapia",
+                    txt: "Lavandula Angustifolia: Uso inalatório (1 gota no pulso). Rico em linalol, com efeito sedativo comprovado no sistema nervoso central.",
+                    ref: "Tisserand, R. (Essential Oil Safety)"
+                }
+            ]
+        },
+        homeopatia: {
+            titulo: "O Cuidado com a Informação",
+            secoes: [
+                {
+                    tipo: "Conservação",
+                    txt: "Manter o frasco a pelo menos 1 metro de dispositivos eletrónicos e fora da luz solar direta. Evitar odores fortes como cânfora e mentol no ambiente.",
+                    ref: "Hahnemann, S. (Organon da Arte de Curar)"
+                }
+            ]
         }
     };
 
@@ -70,16 +135,19 @@
     }
 
     function verProtocolo(id) {
-        const p = protocolos[id];
-        const html = `
-            <div class="area-card">
-                <span class="tag">Protocolo Bio-Regulador</span>
-                <h3>${p.titulo}</h3>
-                <p><strong>Acupressão:</strong> ${p.acupressura}</p>
-                <p><strong>Cristal-terapia:</strong> ${p.cristal}</p>
-                <div class="biblio">${p.biblio}</div>
-            </div>
-        `;
+        const p = baseDados[id];
+        let html = `<h2 style="font-family:'Playfair Display'; color:var(--cura);">${p.titulo}</h2>`;
+        
+        p.secoes.forEach(s => {
+            html += `
+                <div class="secao-terapeutica">
+                    <span class="tag-biblio">${s.tipo}</span>
+                    <p>${s.txt}</p>
+                    <div style="font-size:10px; color:#999; margin-top:10px;">Fonte: ${s.ref}</div>
+                </div>
+            `;
+        });
+        
         document.getElementById('conteudo-dinamico').innerHTML = html;
         document.getElementById('tela-menu').classList.remove('ativa');
         document.getElementById('tela-protocolo').classList.add('ativa');
